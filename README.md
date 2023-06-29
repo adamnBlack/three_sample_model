@@ -1,6 +1,4 @@
-<h1>@react-three</h1>
-
-<a href="https://docs.pmnd.rs/react-three-fiber/getting-started/examples"><img src="/docs/banner-r3f.jpg" /></a>
+<h1>react-three</h1>
 
 react-three-fiber is a <a href="https://reactjs.org/docs/codebase-overview.html#renderers">React renderer</a> for threejs.
 
