@@ -1,16 +1,13 @@
-<h1>@react-three/fiber</h1>
+---
+title: Introduction
+description: React-three-fiber is a React renderer for three.js.
+nav: 0
+---
 
-[![Version](https://img.shields.io/npm/v/@react-three/fiber?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@react-three/fiber)
-[![Downloads](https://img.shields.io/npm/dt/@react-three/fiber.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@react-three/fiber)
-[![Twitter](https://img.shields.io/twitter/follow/pmndrs?label=%40pmndrs&style=flat&colorA=000000&colorB=000000&logo=twitter&logoColor=000000)](https://twitter.com/pmndrs)
-[![Discord](https://img.shields.io/discord/740090768164651008?style=flat&colorA=000000&colorB=000000&label=discord&logo=discord&logoColor=000000)](https://discord.gg/ZZjjNvJ)
-[![Open Collective](https://img.shields.io/opencollective/all/react-three-fiber?style=flat&colorA=000000&colorB=000000)](https://opencollective.com/react-three-fiber)
-[![ETH](https://img.shields.io/badge/ETH-f5f5f5?style=flat&colorA=000000&colorB=000000)](https://blockchain.com/eth/address/0x6E3f79Ea1d0dcedeb33D3fC6c34d2B1f156F2682)
-[![BTC](https://img.shields.io/badge/BTC-f5f5f5?style=flat&colorA=000000&colorB=000000)](https://blockchain.com/btc/address/36fuguTPxGCNnYZSRdgdh6Ea94brCAjMbH)
-
-<a href="https://docs.pmnd.rs/react-three-fiber/getting-started/examples"><img src="/docs/banner-r3f.jpg" /></a>
-
-react-three-fiber is a <a href="https://reactjs.org/docs/codebase-overview.html#renderers">React renderer</a> for threejs.
+<a href="https://docs.pmnd.rs/react-three-fiber/getting-started/examples">
+  <img src="https://github.com/pmndrs/react-three-fiber/raw/master/docs/banner-r3f.jpg" />
+</a>
+<br />
 
 Build your scene declaratively with re-usable, self-contained components that react to state, are readily interactive and can participate in React's ecosystem.
 
@@ -30,15 +27,23 @@ No. There is no overhead. Components render outside of React. It outperforms Thr
 
 Yes. It merely expresses Threejs in JSX, `<mesh />` dynamically turns into `new THREE.Mesh()`. If a new Threejs version adds, removes or changes features, it will be available to you instantly without depending on updates to this library.
 
-### What does it look like?
+## What does it look like?
 
 <table>
   <tbody>
     <tr>
-      <td>Let's make a re-usable component that has its own state, reacts to user-input and participates in the render-loop. (<a href="https://codesandbox.io/s/rrppl0y8l4?file=/src/App.js">live demo</a>).</td>
+      <td>
+        Let's make a re-usable component that has its own state, reacts to user-input and participates in the
+        render-loop. (<a href="https://codesandbox.io/s/rrppl0y8l4?file=/src/App.js">live demo</a>).
+      </td>
       <td>
         <a href="https://codesandbox.io/s/rrppl0y8l4">
-          <img src="/docs/basic-app.gif" />
+          <img
+            src="https://github.com/pmndrs/react-three-fiber/raw/master/docs/basic-app.gif"
+            alt="Two spinning orange cubes that turn purple on mouse over"
+            width="252px"
+            height="60px"
+          />
         </a>
       </td>
     </tr>
@@ -51,22 +56,22 @@ import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 
 function Box(props) {
-  // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef()
-  // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
+  // This reference will give us direct access to the mesh
+  const meshRef = useRef()
+  // Set up state for the hovered and active state
+  const [hovered, setHover] = useState(false)
+  const [active, setActive] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (ref.current.rotation.x += delta))
-  // Return the view, these are regular Threejs elements expressed in JSX
+  useFrame((state, delta) => (meshRef.current.rotation.x += delta))
+  // Return view, these are regular three.js elements expressed in JSX
   return (
     <mesh
       {...props}
-      ref={ref}
-      scale={clicked ? 1.5 : 1}
-      onClick={(event) => click(!clicked)}
-      onPointerOver={(event) => hover(true)}
-      onPointerOut={(event) => hover(false)}>
+      ref={meshRef}
+      scale={active ? 1.5 : 1}
+      onClick={(event) => setActive(!active)}
+      onPointerOver={(event) => setHover(true)}
+      onPointerOut={(event) => setHover(false)}>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
     </mesh>
@@ -85,7 +90,7 @@ createRoot(document.getElementById('root')).render(
 
 <details>
   <summary>Show TypeScript example</summary>
-  
+
 ```bash
 npm install @types/three
 ```
@@ -97,25 +102,25 @@ import React, { useRef, useState } from 'react'
 import { Canvas, useFrame, ThreeElements } from '@react-three/fiber'
 
 function Box(props: ThreeElements['mesh']) {
-  const ref = useRef<THREE.Mesh>(null!)
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
-  useFrame((state, delta) => (ref.current.rotation.x += delta))
+  const meshRef = useRef<THREE.Mesh>(null!)
+  const [hovered, setHover] = useState(false)
+  const [active, setActive] = useState(false)
+  useFrame((state, delta) => (meshRef.current.rotation.x += delta))
   return (
     <mesh
       {...props}
-      ref={ref}
-      scale={clicked ? 1.5 : 1}
-      onClick={(event) => click(!clicked)}
-      onPointerOver={(event) => hover(true)}
-      onPointerOut={(event) => hover(false)}>
+      ref={meshRef}
+      scale={active ? 1.5 : 1}
+      onClick={(event) => setActive(!active)}
+      onPointerOver={(event) => setHover(true)}
+      onPointerOut={(event) => setHover(false)}>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
     </mesh>
   )
 }
 
-createRoot(document.getElementById('root') as HTMLElement).render(
+createRoot(document.getElementById('root')).render(
   <Canvas>
     <ambientLight />
     <pointLight position={[10, 10, 10]} />
@@ -132,44 +137,21 @@ Live demo: https://codesandbox.io/s/icy-tree-brnsm?file=/src/App.tsx
 <details>
   <summary>Show React Native example</summary>
 
-This example relies on react 18 and uses `expo-cli`, but you can create a bare project with their template or with the `react-native` CLI.
+For installation instructions see [react native installation instructions](https://docs.pmnd.rs/react-three-fiber/getting-started/installation#react-native).
 
-```bash
-# Install expo-cli, this will create our app
-npm install expo-cli -g
-# Create app and cd into it
-expo init my-app
-cd my-app
-# Install dependencies
-npm install three @react-three/fiber@beta react@rc
-# Start
-expo start
-```
-
-Some configuration may be required to tell the Metro bundler about your assets if you use `useLoader` or Drei abstractions like `useGLTF` and `useTexture`:
-
-```js
-// metro.config.js
-module.exports = {
-  resolver: {
-    sourceExts: ['js', 'jsx', 'json', 'ts', 'tsx', 'cjs'],
-    assetExts: ['glb', 'png', 'jpg'],
-  },
-}
-```
-
-```tsx
+```jsx
 import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber/native'
+
 function Box(props) {
-  const mesh = useRef(null)
+  const meshRef = useRef(null)
   const [hovered, setHover] = useState(false)
   const [active, setActive] = useState(false)
-  useFrame((state, delta) => (mesh.current.rotation.x += delta))
+  useFrame((state, delta) => (meshRef.current.rotation.x += delta))
   return (
     <mesh
       {...props}
-      ref={mesh}
+      ref={meshRef}
       scale={active ? 1.5 : 1}
       onClick={(event) => setActive(!active)}
       onPointerOver={(event) => setHover(true)}
@@ -179,6 +161,7 @@ function Box(props) {
     </mesh>
   )
 }
+
 export default function App() {
   return (
     <Canvas>
@@ -193,13 +176,7 @@ export default function App() {
 
 </details>
 
----
-
-# Documentation, tutorials, examples
-
-Visit [docs.pmnd.rs](https://docs.pmnd.rs/react-three-fiber)
-
-# First steps
+## First steps
 
 You need to be versed in both React and Threejs before rushing into this. If you are unsure about React consult the official [React docs](https://react.dev/learn), especially [the section about hooks](https://react.dev/reference/react). As for Threejs, make sure you at least glance over the following links:
 
@@ -214,9 +191,11 @@ Some helpful material:
 - [Discover Threejs](https://discoverthreejs.com), especially the [Tips and Tricks](https://discoverthreejs.com/tips-and-tricks) chapter for best practices
 - [Bruno Simons Threejs Jouney](https://threejs-journey.com), arguably the best learning resource, now includes a full [R3F chapter](https://threejs-journey.com/lessons/what-are-react-and-react-three-fiber)
 
-<a href="https://threejs-journey.com"><img src="/docs/banner-journey.jpg" /></a>
+<a href="https://threejs-journey.com">
+  <img src="https://github.com/pmndrs/react-three-fiber/raw/master/docs/banner-journey.jpg" />
+</a>
 
-# Ecosystem
+## Eco system
 
 There is a vibrant and extensive eco system around three-fiber, full of libraries, helpers and abstractions.
 
@@ -224,7 +203,6 @@ There is a vibrant and extensive eco system around three-fiber, full of librarie
 - [`@react-three/gltfjsx`](https://github.com/pmndrs/gltfjsx) &ndash; turns GLTFs into JSX components
 - [`@react-three/postprocessing`](https://github.com/pmndrs/react-postprocessing) &ndash; post-processing effects
 - [`@react-three/test-renderer`](https://github.com/pmndrs/react-three-fiber/tree/master/packages/test-renderer) &ndash; for unit tests in node
-- [`@react-three/offscreen`](https://github.com/pmndrs/react-three-offscreen) &ndash; offscreen/worker canvas for react-three-fiber
 - [`@react-three/flex`](https://github.com/pmndrs/react-three-flex) &ndash; flexbox for react-three-fiber
 - [`@react-three/xr`](https://github.com/pmndrs/react-xr) &ndash; VR/AR controllers and events
 - [`@react-three/csg`](https://github.com/pmndrs/react-three-csg) &ndash; constructive solid geometry
@@ -246,19 +224,19 @@ There is a vibrant and extensive eco system around three-fiber, full of librarie
 - [`miniplex`](https://github.com/hmans/miniplex) &ndash; ECS (entity management system)
 - [`composer-suite`](https://github.com/hmans/composer-suite) &ndash; composing shaders, particles, effects and game mechanics
 
-# How to contribute
+## How to contribute
 
 If you like this project, please consider helping out. All contributions are welcome as well as donations to [Opencollective](https://opencollective.com/react-three-fiber), or in crypto `BTC: 36fuguTPxGCNnYZSRdgdh6Ea94brCAjMbH`, `ETH: 0x6E3f79Ea1d0dcedeb33D3fC6c34d2B1f156F2682`.
 
-#### Backers
+## Backers
 
 Thank you to all our backers! 🙏
 
 <a href="https://opencollective.com/react-three-fiber#backers" target="_blank">
-  <img src="https://opencollective.com/react-three-fiber/backers.svg?width=890"/>
+  <img src="https://opencollective.com/react-three-fiber/backers.svg?width=890" />
 </a>
 
-#### Contributors
+## Contributors
 
 This project exists thanks to all the people who contribute.
 
