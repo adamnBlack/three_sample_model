@@ -22,10 +22,6 @@ No. There is no overhead. Components render outside of React. It outperforms Thr
 
 Yes. It merely expresses Threejs in JSX, `<mesh />` dynamically turns into `new THREE.Mesh()`. If a new Threejs version adds, removes or changes features, it will be available to you instantly without depending on updates to this library.
 
-# Documentation, tutorials, examples
-
-Visit [docs.pmnd.rs](https://docs.pmnd.rs/react-three-fiber)
-
 # First steps
 
 You need to be versed in both React and Threejs before rushing into this. If you are unsure about React consult the official [React docs](https://react.dev/learn), especially [the section about hooks](https://react.dev/reference/react). As for Threejs, make sure you at least glance over the following links:
