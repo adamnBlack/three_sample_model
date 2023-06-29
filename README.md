@@ -41,7 +41,6 @@ Some helpful material:
 - [Discover Threejs](https://discoverthreejs.com), especially the [Tips and Tricks](https://discoverthreejs.com/tips-and-tricks) chapter for best practices
 - [Bruno Simons Threejs Jouney](https://threejs-journey.com), arguably the best learning resource, now includes a full [R3F chapter](https://threejs-journey.com/lessons/what-are-react-and-react-three-fiber)
 
-<a href="https://threejs-journey.com"><img src="/docs/banner-journey.jpg" /></a>
 
 # Ecosystem
 
@@ -51,19 +50,3 @@ There is a vibrant and extensive eco system around three-fiber, full of librarie
 # How to contribute
 
 If you like this project, please consider helping out. All contributions are welcome as well as donations to [Opencollective](https://opencollective.com/react-three-fiber), or in crypto `BTC: 36fuguTPxGCNnYZSRdgdh6Ea94brCAjMbH`, `ETH: 0x6E3f79Ea1d0dcedeb33D3fC6c34d2B1f156F2682`.
-
-#### Backers
-
-Thank you to all our backers! 🙏
-
-<a href="https://opencollective.com/react-three-fiber#backers" target="_blank">
-  <img src="https://opencollective.com/react-three-fiber/backers.svg?width=890"/>
-</a>
-
-#### Contributors
-
-This project exists thanks to all the people who contribute.
-
-<a href="https://github.com/pmndrs/react-three-fiber/graphs/contributors">
-  <img src="https://opencollective.com/react-three-fiber/contributors.svg?width=890" />
-</a>
